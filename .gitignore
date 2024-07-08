@@ -1,3 +1,6 @@
+
 .hushlogin
-myEnv
-small_business_management_app
+__pycache__/
+flask-server/myEnv/
+
+
