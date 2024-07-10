@@ -2,6 +2,7 @@
 
 refs
 * https://www.youtube.com/watch?v=7LNl2JlZKHA
+* https://www.youtube.com/watch?v=PppslXOR7TA&list=WL&index=4
 
 # PLANNING DOCUMENT
 STACK!!
@@ -92,6 +93,11 @@ postgresql:small_business_management_app
   ```
 
 
+* install axios for react
+```bash
+  npm install axios
+```
+
 # RUNNING THE APPLICATION
 
 
@@ -100,6 +106,102 @@ terminal -> main project directory -> tmux -> 2 split vim terminals ->
 1. cd to flask-server, activate venv, [flask run --debug] (port 5000)
 2. cd to react-app, run react app [npm start] (port 3000)
 this window now shows both the front and back end of the application running
+
+
+
+RESTARTING
+================================================================================================
+https://www.youtube.com/watch?v=PppslXOR7TA&list=WL&index=4
+
+
+1. install react front end with vite
+```bash
+npm create vite@latest frontend -- --template react  
+cd frontend
+npm install
+npm run dev
+
+```
+2. create a flask backend
+```bash
+pip install --upgrade pip
+python3 -m venv myVenv
+source myVenv/bin/activate
+pip install -r requirements.txt
+```
+*may have to re-enter the venv for packages to be recognized*
+
+
+RESTARTING 2
+================================================================================================
+
+        setup backend
+--------------------------------
+```bash
+mkdir small_business_management_app
+cd small_business_management_app
+mkdir server
+cd server
+npm init -y
+npm install express cors pg
+```
+
+        make server.js file, add api routes
+----------------------------
+```bash
+touch server.js
+```
+```javascript
+const express = require('express');
+const cors = require('cors');
+const { Pool } = require('pg');
+
+// etc etc
+
+```
+
+                setup frontend
+--------------------------------
+```bash
+npx create-react-app client
+cd client
+npm install axios
+```
+
+          setup proxy in package.json
+--------------------------------
+```json
+"proxy": "http://localhost:5000"
+```
+
+       create postgres db and connect
+---------------------------
+```sql
+CREATE TABLE items (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  description TEXT
+);
+insert into items (name, description) values ('Fork', 'A utensil used to eat food');
+select * from items;
+
+```
+
+     run both servers, seperate terminals
+--------------
+```bash
+cd server
+node server.js
+```
+```bash
+cd client
+npm start
+```
+
+
+
+
+
 
 
 
