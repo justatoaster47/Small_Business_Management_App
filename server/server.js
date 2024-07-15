@@ -51,4 +51,14 @@ app.post('/api/items', async (req, res) => {
   }
 });
 
-
+// Delete an item
+app.delete('/api/items/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const { rows } = await pool.query('DELETE FROM items WHERE id = $1 RETURNING *', [id]);
+    res.json(rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});

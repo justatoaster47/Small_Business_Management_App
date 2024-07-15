@@ -14,17 +14,35 @@ function App() {
     setItems(res.data);
   };
 
-  const handleSubmit = async (e) => {
+  const handleAdd = async (e) => {
     e.preventDefault();
     await axios.post('/api/items', newItem);
     setNewItem({ name: '', description: '' });
     fetchItems();
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this item?')) {
+      await axios.delete(`/api/items/${id}`);
+    }
+    fetchItems();
+  };
+
+
   return (
     <div>
       <h1>My Items</h1>
-      <form onSubmit={handleSubmit}>
+
+      <ol>
+      {items.map(item => (
+        <li key={item.id}>
+          {item.name}: {item.description}
+          <button onClick={() => handleDelete(item.id)}>Delete</button>
+        </li>
+      ))}
+      </ol>
+
+      <form onSubmit={handleAdd}>
         <input
           type="text"
           value={newItem.name}
@@ -39,11 +57,7 @@ function App() {
         />
         <button type="submit">Add Item</button>
       </form>
-      <ul>
-        {items.map(item => (
-          <li key={item.id}>{item.name}: {item.description}</li>
-        ))}
-      </ul>
+
     </div>
   );
 }
