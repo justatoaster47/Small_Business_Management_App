@@ -28,6 +28,15 @@ function App() {
     fetchItems();
   };
 
+  const handleUpdate = async (id) => {
+    const newName = window.prompt('Enter the new name');
+    const newDescription = window.prompt('Enter the new description');
+    await axios.patch(`/api/items/${id}`, { name: newName, description: newDescription });
+    fetchItems();
+  }
+
+
+
 
   return (
     <div>
@@ -38,6 +47,7 @@ function App() {
         <li key={item.id}>
           {item.name}: {item.description}
           <button onClick={() => handleDelete(item.id)}>Delete</button>
+          <button onClick={() => handleUpdate(item.id)}>Edit</button>
         </li>
       ))}
       </ol>

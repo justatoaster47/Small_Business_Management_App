@@ -62,3 +62,23 @@ app.delete('/api/items/:id', async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
+// Update an item
+app.patch('/api/items/:id', async (req, res) => {
+  const id = req.params.id;
+  const { name, description } = req.body;
+  try {
+    const { rows } = await pool.query('UPDATE items SET name = $1, description = $2 WHERE id = $3 RETURNING *', [name, description, id]);
+    res.json(rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+
+
+
+
+
