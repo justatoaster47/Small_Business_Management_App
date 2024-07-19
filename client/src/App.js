@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ItemList from './components/ItemList';
 
 function App() {
   const [items, setItems] = useState([]);
@@ -41,16 +42,8 @@ function App() {
   return (
     <div>
       <h1>My Items</h1>
-
-      <ol>
-      {items.map(item => (
-        <li key={item.id}>
-          {item.name}: {item.description}
-          <button onClick={() => handleDelete(item.id)}>Delete</button>
-          <button onClick={() => handleUpdate(item.id)}>Edit</button>
-        </li>
-      ))}
-      </ol>
+      
+      <ItemList items={items} handleDelete={handleDelete} handleUpdate={handleUpdate} />
 
       <form onSubmit={handleAdd}>
         <input

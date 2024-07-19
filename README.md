@@ -3,6 +3,7 @@
 refs
 * https://www.youtube.com/watch?v=7LNl2JlZKHA
 * https://www.youtube.com/watch?v=PppslXOR7TA&list=WL&index=4
+* https://www.youtube.com/watch?v=Rgvec9UA2_I (this one for tailwind, font)
 
 # PLANNING DOCUMENT
 STACK!!
@@ -198,10 +199,20 @@ cd client
 npm start
 ```
 
+install talwindcss
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init 
+```
+-----------------------
 
 
 
 
 
+current implementation goals:
+  * add tailwind
+  * be able to import/export components
+  
 
 
