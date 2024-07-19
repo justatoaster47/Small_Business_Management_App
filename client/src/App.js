@@ -12,33 +12,46 @@ function App() {
   }, []);
 
   const fetchItems = async () => {
-    const res = await axios.get('/api/items');
-    setItems(res.data);
+    try {
+      const res = await axios.get('/api/items');
+      setItems(res.data);
+    } catch (error) {
+      console.error('Error fetching items:', error);
+    }
   };
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    await axios.post('/api/items', newItem);
-    setNewItem({ name: '', description: '' });
-    fetchItems();
+    try {
+      await axios.post('/api/items', newItem);
+      setNewItem({ name: '', description: '' });
+      fetchItems();
+    } catch (error) {
+      console.error('Error adding item:', error);
+    }
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
-      await axios.delete(`/api/items/${id}`);
+      try {
+        await axios.delete(`/api/items/${id}`);
+        fetchItems();
+      } catch (error) {
+        console.error('Error deleting item:', error);
+      }
     }
-    fetchItems();
   };
 
   const handleUpdate = async (id) => {
     const newName = window.prompt('Enter the new name');
     const newDescription = window.prompt('Enter the new description');
-    await axios.patch(`/api/items/${id}`, { name: newName, description: newDescription });
-    fetchItems();
-  }
-
-
-
+    try {
+      await axios.patch(`/api/items/${id}`, { name: newName, description: newDescription });
+      fetchItems();
+    } catch (error) {
+      console.error('Error updating item:', error);
+    }
+  };
 
   return (
     <div>
