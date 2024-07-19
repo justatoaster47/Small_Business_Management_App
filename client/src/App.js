@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ItemList from './components/ItemList';
+import NewItemForm  from './components/NewItemForm';
 
 function App() {
   const [items, setItems] = useState([]);
@@ -44,22 +45,7 @@ function App() {
       <h1>My Items</h1>
       
       <ItemList items={items} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-
-      <form onSubmit={handleAdd}>
-        <input
-          type="text"
-          value={newItem.name}
-          onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-          placeholder="Item name"
-        />
-        <input
-          type="text"
-          value={newItem.description}
-          onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
-          placeholder="Item description"
-        />
-        <button type="submit">Add Item</button>
-      </form>
+      <NewItemForm handleAdd={handleAdd} newItem={newItem} setNewItem={setNewItem} />
 
     </div>
   );
