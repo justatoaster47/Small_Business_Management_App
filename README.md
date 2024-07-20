@@ -68,7 +68,7 @@ postgresql:small_business_management_app
     },
   ```
 
-* install client dependencies
+* install client dependencies in client dir
   ```bash
     npm install axios tailwindcss postcss autoprefixer react-router-dom
   ```
@@ -81,6 +81,9 @@ postgresql:small_business_management_app
   ```bash
     cd server
     node server.js
+  ```
+  ```bash
+    curl http://localhost:8000/api
   ```
   
 
