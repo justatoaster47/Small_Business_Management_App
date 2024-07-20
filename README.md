@@ -72,6 +72,7 @@ CONFIGURE CLIENT END
   ```
 
 * check tailwind working (in App.jsx) 
+  should be red background with underlined text
   ```javascript
   import React from 'react';
 
@@ -85,6 +86,31 @@ CONFIGURE CLIENT END
 
   export default App;
   ```
+
+* install react-router-dom
+  ```bash
+    npm install react-router-dom
+  ```
+
+* create pages/Home.jsx
+  ```bash
+    touch pages/Homepage.jsx
+  ```
+  ```javascript
+    import React from 'react';
+    
+    const Homepage = () => {
+      return (
+        <h1 className='bg-blue-500'>
+          Home Page Content
+        </h1>
+      );
+    }
+
+    export default Homepage;
+  ```
+
+* alter App.jsx to include Homepage.jsx route
 
 
 
