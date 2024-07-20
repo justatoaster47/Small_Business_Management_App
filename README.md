@@ -8,7 +8,7 @@ refs
 # PLANNING DOCUMENT
 STACK!!
 front end: React (vite)
-backend & api: JS/Express
+backend & api: JSX/Express
 database: PostgreSQL
 version control: git
 
@@ -16,7 +16,9 @@ version control: git
 ### FULL STEPS
 * make planning document (this)
 
+CONFIGURE CLIENT END
 * make git repo (make on github account, then create repo in local directory and link)
+[https://github.com]
   ```bash
     echo "# Small_Business_Management_App" >> README.md
     git init
@@ -28,6 +30,7 @@ version control: git
   ```
 
 * cd to project dir, make react app with vite
+[https://v3.vitejs.dev/guide/]
   ```bash
     npm create vite@latest client -- --template react  
     cd client
@@ -35,6 +38,86 @@ version control: git
     npm run dev
   ```
 
+* install tailwindcss (in client dir)
+[https://tailwindcss.com/docs/guides/vite]
+  ```bash
+  npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+  npx tailwindcss init -p
+  ```
+
+* alter tailwind.config.js
+  ```javascript
+  export default {
+    content: [
+      "./index.html",
+      "./src/**/*.{js,ts,jsx,tsx}",
+    ],
+    theme: {
+      extend: {},
+    },
+    plugins: [],
+  }
+  ```
+
+* alter src/index.css
+  ```css
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  ```
+
+* run project
+  ```bash
+    npm run dev
+  ```
+
+* check tailwind working (in App.jsx) 
+  ```javascript
+  import React from 'react';
+
+  function App() {
+    return (
+      <h1 className='underline bg-red-500'>
+        Hello, World!
+      </h1>
+    );
+  }
+
+  export default App;
+  ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* install client dependencies in client dir
+  ```bash
+    npm install axios tailwindcss postcss autoprefixer react-router-dom
+  ```
+
+* run server / client, check they're linked
+  ```bash
+    cd client
+    npm run dev
+  ```
+  ```bash
+    cd server
+    node server.js
+  ```
+  ```bash
+    curl http://localhost:8000/api
+  ```
+  
 * add postgres db to your nvim ui, url provided below
 ```
 postgresql:small_business_management_app
@@ -67,25 +150,6 @@ postgresql:small_business_management_app
       },
     },
   ```
-
-* install client dependencies in client dir
-  ```bash
-    npm install axios tailwindcss postcss autoprefixer react-router-dom
-  ```
-
-* run server / client, check they're linked
-  ```bash
-    cd client
-    npm run dev
-  ```
-  ```bash
-    cd server
-    node server.js
-  ```
-  ```bash
-    curl http://localhost:8000/api
-  ```
-  
 
 # RUNNING THE APPLICATION
 
