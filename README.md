@@ -94,7 +94,8 @@ CONFIGURE CLIENT END
 
 * create pages/Home.jsx
   ```bash
-    touch pages/Homepage.jsx
+    mkdir src/pages
+    touch src/pages/Homepage.jsx
   ```
   ```javascript
     import React from 'react';
@@ -111,6 +112,29 @@ CONFIGURE CLIENT END
   ```
 
 * alter App.jsx to include Homepage.jsx route
+  ```javascript
+    import Homepage from './pages/Homepage';
+  ```
+  this is just to check homepage imports on its how
+  ```javascript
+    <Homepage />
+  ```
+  then add react-router-dom
+  ```javascript
+    import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+  ```
+  ```javascript
+        <Router>
+          <Routes>
+            <Route path='/' element={<Homepage />} />
+            <Route path='/login' element={<Login />} />
+          </Routes>
+        </Router>
+  ```
+  (this should be the only thing now in return statement of app.jsx)
+  (add another page and another route to test routing, adjust location of /)
+
+
 
 
 
