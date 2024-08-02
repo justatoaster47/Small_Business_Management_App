@@ -14,10 +14,10 @@ version control: git
 
 
 ### FULL STEPS
-* make planning document (this)
+1. make planning document (this)
 
-CONFIGURE CLIENT END
-* make git repo (make on github account, then create repo in local directory and link)
+#### CONFIGURE CLIENT END
+2. make git repo (make on github account, then create repo in local directory and link)
 [https://github.com]
   ```bash
     echo "# Small_Business_Management_App" >> README.md
@@ -25,12 +25,12 @@ CONFIGURE CLIENT END
     git add README.md
     git commit -m "first commit"
     git branch -M main
-    git remote add origin https://github.com/justatoaster47/Small_Business_Management_App.git
+    git remote add origin https://github.com/justatoaster49/Small_Business_Management_App.git
     git push -u origin main
   ```
 
-* cd to project dir, make react app with vite
-[https://v3.vitejs.dev/guide/]
+4. cd to project dir, make react app with vite
+[https://v7.vitejs.dev/guide/]
   ```bash
     npm create vite@latest client -- --template react  
     cd client
@@ -38,19 +38,19 @@ CONFIGURE CLIENT END
     npm run dev
   ```
 
-* install tailwindcss (in client dir)
+6. install tailwindcss (in client dir)
 [https://tailwindcss.com/docs/guides/vite]
   ```bash
   npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
   npx tailwindcss init -p
   ```
 
-* alter tailwind.config.js
+7. alter tailwind.config.js
   ```javascript
   export default {
     content: [
       "./index.html",
-      "./src/**/*.{js,ts,jsx,tsx}",
+      "./src/8.*/*.{js,ts,jsx,tsx}",
     ],
     theme: {
       extend: {},
@@ -59,40 +59,40 @@ CONFIGURE CLIENT END
   }
   ```
 
-* alter src/index.css
+9. alter src/index.css
   ```css
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
   ```
 
-* run project
+10. run project
   ```bash
     npm run dev
   ```
 
-* check tailwind working (in App.jsx) 
+11. check tailwind working (in App.jsx) 
   should be red background with underlined text
   ```javascript
   import React from 'react';
 
   function App() {
     return (
-      <h1 className='underline bg-red-500'>
+      <h12 className='underline bg-red-500'>
         Hello, World!
-      </h1>
+      </h13>
     );
   }
 
   export default App;
   ```
 
-* install react-router-dom
+14. install react-router-dom
   ```bash
     npm install react-router-dom
   ```
 
-* create pages/Home.jsx
+15. create pages/Home.jsx
   ```bash
     mkdir src/pages
     touch src/pages/Homepage.jsx
@@ -102,16 +102,16 @@ CONFIGURE CLIENT END
     
     const Homepage = () => {
       return (
-        <h1 className='bg-blue-500'>
+        <h16 className='bg-blue-500'>
           Home Page Content
-        </h1>
+        </h17>
       );
     }
 
     export default Homepage;
   ```
 
-* alter App.jsx to include Homepage.jsx route
+18. alter App.jsx to include Homepage.jsx route
   ```javascript
     import Homepage from './pages/Homepage';
   ```
@@ -136,44 +136,9 @@ CONFIGURE CLIENT END
 
 
 
+#### link backend to frontend
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-* install client dependencies in client dir
-  ```bash
-    npm install axios tailwindcss postcss autoprefixer react-router-dom
-  ```
-
-* run server / client, check they're linked
-  ```bash
-    cd client
-    npm run dev
-  ```
-  ```bash
-    cd server
-    node server.js
-  ```
-  ```bash
-    curl http://localhost:8000/api
-  ```
-  
-* add postgres db to your nvim ui, url provided below
-```
-postgresql:small_business_management_app
-```
-
-* make postgres db, assuming your user is already set up in defaults
+1. make postgres db, assuming your user is already set up in defaults
   ```bash
     psql 
   ```
@@ -181,106 +146,151 @@ postgresql:small_business_management_app
     CREATE DATABASE small_business_management_app;
     \c small_business_management_app
   ```
-
-* add proxy links to server -> package.json
-  ```json
-    "proxy": "http://localhost:5173"
+  create login table
+  ```sql
+    CREATE TABLE items (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+      description TEXT
+    );
+    insert into items (name, description) values ('Fork', 'A utensil used to eat food');
+    select * from items;
   ```
 
-* add proxy link to client -> vite.config.js
+2. add postgres db to your nvim ui if wanted
+  ```
+  postgresql:small_business_management_app
+  ```
+
+3. make server directory, install express, cors, pg
+  ```bash
+    mkdir server
+    cd server
+    npm init -y
+    npm install express cors pg dotenv
+  ```
+
+4. configure server files
+  .env file
+  ```bash
+    echo "DB_USER = 'alexpetro' \nDB_PASSWORD = 'postgres888'" >> .env
+  ```
+  server.js
+  ```bash 
+    touch server.js
+  ```
   ```javascript
-    server: {
-      proxy: {
-        // Proxy API requests to the backend server
-        '/api': {
-          target: 'http://localhost:8000', // URL of the backend server
-          changeOrigin: true, // Changes the origin of the host header to the target URL
-          rewrite: (path) => path.replace(/^\/api/, ''), // Optionally rewrite the URL path
-        },
-      },
-    },
+      const express = require('express');
+      const cors = require('cors');
+      const { Pool } = require('pg');
+
+      require('dotenv').config();
+
+      const app = express();
+      const PORT = process.env.PORT || 8000;
+
+      app.use(cors());
+      app.use(express.json());
+
+      // PostgreSQL connection
+      const pool = new Pool({
+        user: process.env.DB_USER,
+        host: 'localhost',
+        database: 'small_business_management_app',
+        password: process.env.DB_PASSWORD,
+        port: 5432,
+      });
+
+      // Define routes here
+      app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+      });
+
+      // Get all items
+      app.get('/api/items', async (req, res) => {
+        try {
+          const { rows } = await pool.query('SELECT * FROM items');
+          res.json(rows);
+        } catch (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Server error' });
+        }
+      });
+
   ```
+5. adjust homepage.jsx to test server/client connection
+  ```javascript
+    import React, {useState, useEffect} from 'react';
 
-# RUNNING THE APPLICATION
+    const Homepage = () => {
+      const [data, setData] = useState([]);
+
+      useEffect(() => {
+        fetch('http://localhost:8000/api/items')
+          .then(response => response.json())
+          .then(data => setData(data))
+          .catch(error => console.error('Error fetching data:', error));
+      }, []);
 
 
-setup backend
---------------------------------
-```bash
-mkdir small_business_management_app
-cd small_business_management_app
-mkdir server
-cd server
-npm init -y
-npm install express cors pg
+      return (
+        <div>
+          hello! homepage
+
+          {data.map(item => (
+            <div key={item.id}>{item.name}, {item.description}</div>
+          ))}
+        </div>
+      );
+    }
+
+    export default Homepage;
 ```
 
-        make server.js file, add api routes
-----------------------------
-```bash
-touch server.js
-```
-```javascript
-const express = require('express');
-const cors = require('cors');
-const { Pool } = require('pg');
-
-// etc etc
-
-```
-
-                setup frontend
---------------------------------
-```bash
-npx create-react-app client
-cd client
-npm install axios
-```
-
-          setup proxy in package.json
---------------------------------
-```json
-"proxy": "http://localhost:5000"
-```
-
-       create postgres db and connect
----------------------------
-```sql
-CREATE TABLE items (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  description TEXT
-);
-insert into items (name, description) values ('Fork', 'A utensil used to eat food');
-select * from items;
-
-```
-
-     run both servers, seperate terminals
---------------
-```bash
-cd server
-node server.js
-```
-```bash
-cd client
-npm start
-```
-
-install talwindcss
-```bash
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init 
-```
------------------------
 
 
 
 
 
-current implementation goals:
-  * add tailwind
-  * be able to import/export components
-  
 
+
+### CREATION OF LOGIN PAGE:
+  Here are some key steps to build a high-quality login page with React:
+
+      Create a new React component for the login page, e.g. LoginPage.jsx.
+      Design a clean and user-friendly UI with input fields for username/email and password. Use semantic HTML elements like <form>, <label>, and <input>.
+      Add state management to handle form inputs:
+
+  jsx
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+      Implement form validation:
+
+      Check that email and password are not empty
+      Validate email format
+      Ensure password meets minimum requirements
+
+      Handle form submission:
+
+      Prevent default form behavior
+      Call authentication API/service
+      Handle success/failure responses
+
+      Add error handling and display error messages to the user.
+      Implement "Remember me" functionality using local storage.
+      Add a "Forgot password" link.
+      Use React Router to handle navigation after successful login.
+      Style the page for a polished look - consider using CSS modules or a UI library.
+      Make the form accessible with proper labels, ARIA attributes, etc.
+      Add loading indicators for API calls.
+      Implement security best practices like HTTPS, CSRF protection, rate limiting.
+      Add unit and integration tests for the login functionality.
+      Consider adding social login options.
+      Make the page responsive for mobile devices.
+
+  Key things to focus on are user experience, security, error handling, and clean, maintainable
+  code. Using a UI component library like Material-UI can help create a polished look quickly.
+  Testing thoroughly and following React best practices will result in a high-quality login
+  page.
 
