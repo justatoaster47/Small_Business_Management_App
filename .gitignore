@@ -6,3 +6,4 @@ server/.env
 client/node_modules/
 .DS_Store
 clientOLD/
+node_modules/

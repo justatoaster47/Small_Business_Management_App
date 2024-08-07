@@ -218,7 +218,7 @@ version control: git
       });
 
   ```
-5. adjust homepage.jsx to test server/client connection
+5. adjust homepage.jsx to test server/client connection (should route to app.jsx)
   ```javascript
     import React, {useState, useEffect} from 'react';
 
