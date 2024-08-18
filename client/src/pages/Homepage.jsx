@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import NewItemForm from '../components/NewItemForm';
+import ItemList from '../components/ItemList';
 
 const Homepage = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const handleAddItem = (newItem) => {
-  setData(prevData => [...prevData, newItem]);
-  };
-
 
   useEffect(() => {
     fetchData();
@@ -29,6 +25,9 @@ const Homepage = () => {
     }
   };
 
+  const handleAddItem = (newItem) => {
+    setData(prevData => [...prevData, newItem]);
+  };
 
   const handleDelete = async (id) => {
     setIsLoading(true);
@@ -53,31 +52,20 @@ const Homepage = () => {
     }
   };
 
+
   return (
     <div>
       <h1>Homepage</h1>
 
       {error && <p className="text-red-500">{error}</p>}
 
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        data.map(item => (
-          <div key={item.id} className="mb-4 p-4 border rounded">
-            <p>{item.name}, {item.description}</p>
-            <button 
-              onClick={() => handleDelete(item.id)} 
-              className='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition'
-              disabled={isLoading}
-            >
-              {isLoading ? 'Deleting...' : 'Delete'}
-            </button>
-          </div>
-        ))
-      )}
+      <ItemList 
+        data={data} 
+        isLoading={isLoading} 
+        handleDelete={handleDelete} 
+      />
 
       <NewItemForm onAddItem={handleAddItem} />
-
 
     </div>
   );
