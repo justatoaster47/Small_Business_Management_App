@@ -4,6 +4,7 @@ refs
 * https://www.youtube.com/watch?v=7LNl2JlZKHA
 * https://www.youtube.com/watch?v=PppslXOR7TA&list=WL&index=4
 * https://www.youtube.com/watch?v=Rgvec9UA2_I (this one for tailwind, font)
+* https://github.com/oldboyxx/jira_clone  
 
 # PLANNING DOCUMENT
 STACK!!
