@@ -13,6 +13,9 @@ backend & api: JSX/Express
 database: PostgreSQL
 version control: git
 
+# todos
+need Docker app as well
+list dependencies better
 
 ### FULL STEPS
 1. make planning document (this)
@@ -253,6 +256,99 @@ version control: git
 
 
 
+
+## will include...
+User Management:
+
+    User registration and authentication
+    Role-based access control (e.g., admin, manager, employee)
+    User profiles and settings
+
+Inventory Management:
+
+    Product catalog
+    Stock tracking
+    Low stock alerts
+    Barcode/SKU management
+
+Customer Relationship Management (CRM):
+
+    Customer database
+    Contact information
+    Purchase history
+    Communication logs
+
+Order Management:
+
+    Order creation and tracking
+    Invoice generation
+    Order status updates
+
+Financial Management:
+
+    Basic accounting features
+    Expense tracking
+    Revenue reporting
+    Financial dashboards
+
+Employee Management:
+
+    Employee profiles
+    Time tracking
+    Shift scheduling
+    Performance metrics
+
+Reporting and Analytics:
+
+    Sales reports
+    Inventory reports
+    Financial reports
+    Custom report generation
+
+Document Management:
+
+    File storage and organization
+    Document sharing and collaboration
+    Version control
+
+Communication Tools:
+
+    Internal messaging system
+    Email integration
+    Notification system
+
+Task and Project Management:
+
+    Task assignment and tracking
+    Project timelines and milestones
+    Collaboration tools
+
+Marketing and Sales:
+
+    Basic CRM functionality
+    Email marketing integration
+    Sales pipeline tracking
+
+Settings and Configuration:
+
+    Business profile management
+    System settings
+    Customization options
+
+Security Features:
+
+    Data encryption
+    Regular backups
+    Audit logs
+
+Integration Capabilities:
+
+    API for third-party integrations
+    Common integrations (e.g., payment gateways, shipping services)
+
+Mobile Accessibility:
+
+    Responsive design or mobile app for on-the-go access
 
 
 ### CREATION OF LOGIN PAGE:
