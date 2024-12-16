@@ -6,10 +6,15 @@ dotenv.config();
 
 const { Pool } = pg;
 
+// console.log('Loaded Environment Variables:', {
+//   DB_USER: process.env.DB_USER,
+//   DB_NAME: process.env.DB_NAME,
+// });
+
 const pool = new Pool({
   user: process.env.DB_USER,
   host: 'localhost',
-  database: 'small_business_management_app',
+  database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   port: 5432,
 });
