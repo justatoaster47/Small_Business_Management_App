@@ -4,7 +4,7 @@ dotenv.config();
 
 class User {
   static async create(email, hashedPassword) {
-    const query = 'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email';
+    const query = 'INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING user_id, email';
     const values = [email, hashedPassword];
     
     try {

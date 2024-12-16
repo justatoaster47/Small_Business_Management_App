@@ -18,8 +18,8 @@ const Login = () => {
 
     try {
       // Replace with your actual API endpoint
-      const endpoint = isLogin ? 'login' : 'signup';
-      const response = await fetch(`http://localhost:8000/api/${endpoint}`, {
+      const endpoint = isLogin ? 'login' : 'register';
+      const response = await fetch(`http://localhost:8000/api/users/${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
