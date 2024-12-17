@@ -16,10 +16,12 @@ const Login = () => {
       return;
     }
 
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
     try {
       // Replace with your actual API endpoint
       const endpoint = isLogin ? 'login' : 'register';
-      const response = await fetch(`http://localhost:8000/api/users/${endpoint}`, {
+      const response = await fetch(`${API_BASE_URL}/api/users/${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

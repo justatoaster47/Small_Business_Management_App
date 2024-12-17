@@ -11,9 +11,12 @@ const Records = () => {
     fetchData();
   }, []);
 
+
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/items');
+      const response = await fetch(`${API_BASE_URL}/api/items`);
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
@@ -34,7 +37,7 @@ const Records = () => {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/api/items/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/items/${id}`, {
         method: 'DELETE',
       });
 
@@ -57,7 +60,7 @@ const Records = () => {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/api/items/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/items/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

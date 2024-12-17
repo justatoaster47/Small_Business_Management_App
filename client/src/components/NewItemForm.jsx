@@ -4,6 +4,7 @@ const NewItemForm = ({ onAddItem }) => {
   const [newItem, setNewItem] = useState({ name: '', description: '' });
   const [isAdding, setIsAdding] = useState(false);
   const [error, setError] = useState(null);
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -16,7 +17,7 @@ const NewItemForm = ({ onAddItem }) => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8000/api/items', {
+      const response = await fetch(`${API_BASE_URL}/api/items`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
