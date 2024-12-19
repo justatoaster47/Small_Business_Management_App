@@ -2,6 +2,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 const router = express.Router();
 import User from '../models/user.js';
+import jwt from 'jsonwebtoken';
 
 
 
@@ -46,6 +47,7 @@ router.post('/login', async (req, res) => {
 
     // Find user by email
     const user = await User.findByEmail(email);
+    // console.log("this is user: ", user);
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
@@ -58,12 +60,19 @@ router.post('/login', async (req, res) => {
 
     // If everything is correct, send success response
     // In a real application, you would generate and send a token here
+    const SECRET_KEY = 'hi';
+    // console.log ("this is user: ", user.user_id); //user is getting passed correctly from here
+    const token = jwt.sign({
+      user: {
+        email: user.email,
+        user_id: user.user_id
+      }
+    }, SECRET_KEY, { expiresIn: '1h' });    
+    // console.log('token: ', token);
+
     res.json({ 
       message: 'Login successful', 
-      user: { 
-        id: user.id, 
-        email: user.email 
-      } 
+      token
     });
 
   } catch (err) {

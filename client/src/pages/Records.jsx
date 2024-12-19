@@ -14,9 +14,26 @@ const Records = () => {
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+  const token = localStorage.getItem('jwt');
+  if (token) {
+    const base64Payload = token.split('.')[1]; // Get the payload part
+    const payload = JSON.parse(atob(base64Payload)); // Decode Base64
+    console.log('Decoded payload:', payload);
+  } else {
+    console.error('No token found in localStorage');
+  }
+
+
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/items`);
+      const response = await fetch(`${API_BASE_URL}/api/items`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Add the JWT token to the Authorization header
+        },
+      });
+      // console.log(response);
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
@@ -39,6 +56,10 @@ const Records = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/api/items/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`, // Include JWT in the Authorization header
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) {
@@ -63,6 +84,7 @@ const Records = () => {
       const response = await fetch(`${API_BASE_URL}/api/items/${id}`, {
         method: 'PATCH',
         headers: {
+          'Authorization': `Bearer ${token}`, // Include JWT in the Authorization header
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedItem),
@@ -78,7 +100,6 @@ const Records = () => {
       setData(prevData => prevData.map(item => 
         item.id === id ? updatedItemFromServer : item
       ));
-
     } catch (error) {
       console.error('Error updating item:', error);
       setError('Failed to update item. Please try again.');
@@ -86,6 +107,7 @@ const Records = () => {
       setIsLoading(false);
     }
   };
+
 
   return (
     <div>

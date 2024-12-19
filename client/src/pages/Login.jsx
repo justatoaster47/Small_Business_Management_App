@@ -34,8 +34,17 @@ const Login = () => {
       }
 
       const data = await response.json();
-      // Handle successful auth here (e.g., store token, redirect)
+      // Assuming the JWT is returned in the `data.token` field
+      const token = data.token;
+
+      // Store the JWT token in localStorage or cookies (depending on your choice)
+      localStorage.setItem('jwt', token);
+
+      // Handle successful auth here (e.g., redirect user or set user state)
       console.log(isLogin ? 'Login successful' : 'Signup successful', data);
+
+      // Optionally, redirect to another page after login/signup
+      window.location.href = '/'; // Change this to your desired route
     } catch (err) {
       setError(isLogin ? 'Invalid email or password' : 'Failed to create account');
     }
