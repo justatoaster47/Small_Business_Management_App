@@ -21,8 +21,7 @@ class User {
     
     try {
       const result = await pool.query(query, values);
-      console.log("user id type: ", typeof result);
-      return result.rows[0]; // this returns user id as an int
+      return result.rows[0];
     } catch (error) {
       throw error;
     }
