@@ -1,6 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import pool from '../db.js';
+import db from '../knex.js';
 
 const router = express.Router();
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
@@ -23,8 +23,12 @@ const authenticateToken = (req, res, next) => {
 //GET
 router.get('/', authenticateToken, async (req, res) => {
   try {
-    const userId = req.user.user_id;
-    const { rows } = await pool.query('SELECT * FROM items WHERE user_id = $1', [userId]);
+    const user_id = req.user.user_id;
+
+    const rows = await db('items')
+      .select('*')
+      .where({ user_id: user_id });
+
     res.json(rows);
   } catch (err) {
     console.error(err);
@@ -32,65 +36,69 @@ router.get('/', authenticateToken, async (req, res) => {
   }
 });
 
-
 //POST
 router.post('/', authenticateToken, async (req, res) => {
   const { name, description } = req.body;
   try {
     const user_id = req.user.user_id;
-    const { rows } = await pool.query(
-      'INSERT INTO items (name, description, user_id) VALUES ($1, $2, $3) RETURNING *',
-      [name, description, user_id]
-    );
-    res.json(rows[0]);
+
+    const [item] = await db('items')
+      .insert({name, description, user_id})
+      .returning('*');
+
+    res.json(item);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
   }
 });
 
-//DELETE
+// DELETE
 router.delete('/:id', authenticateToken, async (req, res) => {
   const id = req.params.id;
   try {
     const user_id = req.user.user_id;
-    const { rows } = await pool.query(
-      'DELETE FROM items WHERE id = $1 AND user_id = $2 RETURNING *',
-      [id, user_id]
-    );
 
-    if (rows.length === 0) {
+    const deletedItem = await db('items')
+      .where({ id, user_id })
+      .del()
+      .returning('*');
+
+    if (deletedItem.length === 0) {
       return res.status(404).json({ error: 'Item not found or unauthorized' });
     }
 
-    res.json(rows[0]);
+    res.json(deletedItem[0]); // Send back the deleted item
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
   }
 });
 
-//UPDATE
+// UPDATE (PATCH)
 router.patch('/:id', authenticateToken, async (req, res) => {
   const id = req.params.id;
   const { name, description } = req.body;
   try {
     const user_id = req.user.user_id;
-    const { rows } = await pool.query(
-      'UPDATE items SET name = $1, description = $2 WHERE id = $3 AND user_id = $4 RETURNING *',
-      [name, description, id, user_id]
-    );
 
-    if (rows.length === 0) {
+    const updatedItem = await db('items')
+      .where({ id, user_id })
+      .update({ name, description })
+      .returning('*'); 
+
+    if (updatedItem.length === 0) {
       return res.status(404).json({ error: 'Item not found or unauthorized' });
     }
 
-    res.json(rows[0]);
+    res.json(updatedItem[0]); 
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
   }
 });
+
+
 
 export default router;
 
