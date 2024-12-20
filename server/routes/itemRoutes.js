@@ -32,26 +32,15 @@ router.get('/', authenticateToken, async (req, res) => {
   }
 });
 
-// //this functions
-// router.get('/', async (req, res) => {
-//   try {
-//     const { rows } = await pool.query('SELECT * FROM items WHERE user_id = $1', [1]);
-//     res.json(rows);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
-
 
 // Add a new item for the logged-in user
 router.post('/', authenticateToken, async (req, res) => {
   const { name, description } = req.body;
   try {
-    const userId = req.user.userId; // Assumes the JWT contains `userId`
+    const user_id = req.user.user_id; // Assumes the JWT contains `userId`
     const { rows } = await pool.query(
       'INSERT INTO items (name, description, user_id) VALUES ($1, $2, $3) RETURNING *',
-      [name, description, userId]
+      [name, description, user_id]
     );
     res.json(rows[0]);
   } catch (err) {
@@ -64,10 +53,10 @@ router.post('/', authenticateToken, async (req, res) => {
 router.delete('/:id', authenticateToken, async (req, res) => {
   const id = req.params.id;
   try {
-    const userId = req.user.userId; // Assumes the JWT contains `userId`
+    const user_id = req.user.user_id; // Assumes the JWT contains `userId`
     const { rows } = await pool.query(
       'DELETE FROM items WHERE id = $1 AND user_id = $2 RETURNING *',
-      [id, userId]
+      [id, user_id]
     );
 
     if (rows.length === 0) {
@@ -86,10 +75,10 @@ router.patch('/:id', authenticateToken, async (req, res) => {
   const id = req.params.id;
   const { name, description } = req.body;
   try {
-    const userId = req.user.userId; // Assumes the JWT contains `userId`
+    const user_id = req.user.user_id; // Assumes the JWT contains `userId`
     const { rows } = await pool.query(
       'UPDATE items SET name = $1, description = $2 WHERE id = $3 AND user_id = $4 RETURNING *',
-      [name, description, id, userId]
+      [name, description, id, user_id]
     );
 
     if (rows.length === 0) {

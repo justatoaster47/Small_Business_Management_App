@@ -11,6 +11,15 @@ const NewItemForm = ({ onAddItem }) => {
     setNewItem(prevItem => ({ ...prevItem, [name]: value }));
   };
 
+  const token = localStorage.getItem('jwt');
+  if (token) {
+    const base64Payload = token.split('.')[1]; // Get the payload part
+    const payload = JSON.parse(atob(base64Payload)); // Decode Base64
+    console.log('Decoded payload:', payload);
+  } else {
+    console.error('No token found in localStorage');
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsAdding(true);
@@ -21,6 +30,7 @@ const NewItemForm = ({ onAddItem }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Include JWT in the Authorization header
         },
         body: JSON.stringify(newItem),
       });
