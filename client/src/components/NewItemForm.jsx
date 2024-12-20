@@ -5,20 +5,12 @@ const NewItemForm = ({ onAddItem }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [error, setError] = useState(null);
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const token = localStorage.getItem('jwt');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewItem(prevItem => ({ ...prevItem, [name]: value }));
   };
-
-  const token = localStorage.getItem('jwt');
-  if (token) {
-    const base64Payload = token.split('.')[1]; // Get the payload part
-    const payload = JSON.parse(atob(base64Payload)); // Decode Base64
-    console.log('Decoded payload:', payload);
-  } else {
-    console.error('No token found in localStorage');
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +22,7 @@ const NewItemForm = ({ onAddItem }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Include JWT in the Authorization header
+          'Authorization': `Bearer ${token}`, 
         },
         body: JSON.stringify(newItem),
       });

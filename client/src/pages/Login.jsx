@@ -6,6 +6,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,10 +17,7 @@ const Login = () => {
       return;
     }
 
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
     try {
-      // Replace with your actual API endpoint
       const endpoint = isLogin ? 'login' : 'register';
       const response = await fetch(`${API_BASE_URL}/api/users/${endpoint}`, {
         method: 'POST',
@@ -34,17 +32,15 @@ const Login = () => {
       }
 
       const data = await response.json();
-      // Assuming the JWT is returned in the `data.token` field
+
       const token = data.token;
 
-      // Store the JWT token in localStorage or cookies (depending on your choice)
       localStorage.setItem('jwt', token);
 
-      // Handle successful auth here (e.g., redirect user or set user state)
       console.log(isLogin ? 'Login successful' : 'Signup successful', data);
 
-      // Optionally, redirect to another page after login/signup
-      window.location.href = '/'; // Change this to your desired route
+      window.location.href = '/'; // redirect to landing page after success
+
     } catch (err) {
       setError(isLogin ? 'Invalid email or password' : 'Failed to create account');
     }

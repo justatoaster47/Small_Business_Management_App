@@ -6,23 +6,12 @@ const Records = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const token = localStorage.getItem('jwt');
 
   useEffect(() => {
     fetchData();
   }, []);
-
-
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-  const token = localStorage.getItem('jwt');
-  if (token) {
-    const base64Payload = token.split('.')[1]; // Get the payload part
-    const payload = JSON.parse(atob(base64Payload)); // Decode Base64
-    console.log('Decoded payload:', payload);
-  } else {
-    console.error('No token found in localStorage');
-  }
-
 
   const fetchData = async () => {
     try {
@@ -30,10 +19,9 @@ const Records = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Add the JWT token to the Authorization header
+          'Authorization': `Bearer ${token}`,
         },
       });
-      // console.log(response);
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
@@ -96,8 +84,7 @@ const Records = () => {
 
       const updatedItemFromServer = await response.json();
 
-      // Update the local state
-      setData(prevData => prevData.map(item => 
+      setData(prevData => prevData.map(item => // Update the local state
         item.id === id ? updatedItemFromServer : item
       ));
     } catch (error) {
