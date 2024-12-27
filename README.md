@@ -14,6 +14,14 @@
   npx nodemon server.js
   ```
 
+sometimes you have to start postgres manually via..
+```
+sudo systemctl stop postgresql
+sudo systemctl start postgresql
+sudo systemctl status postgresql
+```
+
+
 # fresh setup
 ## install npm on system
   ```
