@@ -45,4 +45,6 @@ def calculate_urgency(row):
 df["priority_rating"] = df.apply(calculate_urgency, axis=1)
 ranked_df = df.sort_values(by="priority_rating", ascending=False)
 
+ranked_df.to_excel("testData.xlsx", index=False, engine="openpyxl")
+
 print(ranked_df)
