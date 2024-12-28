@@ -4,7 +4,7 @@
 #         "customer_id": 1,
 #         "history_length": 3,  
 #         "total_spending": 10000,  # dollars
-#         "issue_created_at": datetime(2024, 12, 20),
+#         "ticket_created": datetime(2024, 12, 20),
 #         "last_visited_at": datetime(2024, 12, 25),
 #         "priority_level": "VIP",  # VIP, Regular, New
 #         "severity": "Critical",  # Critical, Moderate, Low
@@ -15,7 +15,7 @@
 # history length in months, generate randomly 0-36
 #   side note: don't need to reduce priority for new customers as hisotry length 0 does this already
 # vip bonus is boolean
-# issue created at: current datetime minus time of 1-365 days
+# ticket created at: current datetime minus time of 1-365 days
 # last visited at: current datetime minus time of 1-365 days
 # severity: scale of 1 to 5, with higher percentage of 1's (yearly maitenance)
 
@@ -38,15 +38,15 @@ def generate_ticket_data(num_tickets):
   tickets = []
   for i in range(num_tickets):
     history_length = np.random.randint(0, 37)
-    issue_created_at = (current_date - timedelta(days=np.random.randint(1, 366))).date()
-    issue_type = np.random.choice(["Diagnostic", "Maintenance", "Repair"], p=[0.3, 0.4, 0.3])
+    ticket_created = (current_date - timedelta(days=np.random.randint(1, 366))).date()
+    ticket_type = np.random.choice(["Diagnostic", "Maintenance", "Repair"], p=[0.3, 0.4, 0.3])
 
-    if issue_type=="Repair":
+    if ticket_type=="Repair":
       waiting_for_delivery = np.random.choice([True, False], p=[0.6, 0.4])
     else:
       waiting_for_delivery = False
     
-    if issue_type!="Maitenance":
+    if ticket_type!="Maitenance":
       severity_level = np.random.choice(["Critical", "Moderate", "Low"], p=[0.1, 0.4, 0.5])
     else:
       severity_level = "Low"
@@ -58,10 +58,10 @@ def generate_ticket_data(num_tickets):
       "Phone": fake.phone_number(),
       "history_length_months": history_length,
       "total_spending": np.random.randint(0, 5001),  # Spending in dollars
-      "issue_created_at": issue_created_at,
+      "ticket_created": ticket_created,
       "priority_level": np.random.choice(["VIP", "Regular"], p=[0.1, 0.9]),
       "severity": np.random.choice(["Critical", "Moderate", "Low"], p=[0.1, 0.4, 0.5]),
-      "issue_type": issue_type,
+      "ticket_type": ticket_type,
       "waiting_for_delivery": waiting_for_delivery
     }
 

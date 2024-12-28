@@ -17,8 +17,8 @@ def calculate_urgency(row):
 
   now = datetime.now()
 
-  # Calculate age of the issue
-  issue_age = (now - row["issue_created_at"]).days
+  # Calculate age of the ticket
+  ticket_age = (now - row["ticket_created"]).days
 
   if row["priority_level"] == "VIP":
     priority_weight = 1.5
@@ -33,15 +33,16 @@ def calculate_urgency(row):
     severity_weight = 1
 
   # Calculate urgency score
-  urgency_score = ((
+  urgency_score = int((
     WEIGHTS["history_length_months"] * row["history_length_months"] +
       WEIGHTS["total_spending"] * row["total_spending"] / 1000 +  # Normalize spending
-      WEIGHTS["ticket_age"] * issue_age
+      WEIGHTS["ticket_age"] * ticket_age
   ) * priority_weight * severity_weight )
 
   return urgency_score
 
 
+df["ticket_age_days"] = df.apply(lambda row: (datetime.now() - row["ticket_created"]).days, axis=1)
 df["priority_rating"] = df.apply(calculate_urgency, axis=1)
 ranked_df = df.sort_values(by="priority_rating", ascending=False)
 
