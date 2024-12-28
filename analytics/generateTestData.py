@@ -35,33 +35,42 @@ num_tickets = 100
 current_date = datetime.today()
 
 def generate_ticket_data(num_tickets):
-    tickets = []
-    for i in range(num_tickets):
-        history_length = np.random.randint(0, 37)
-        issue_created_at = current_date - timedelta(days=np.random.randint(1, 366))
-        ticket = {
-            "customer_id": i + 1,  # Unique customer ID
-            "Name": fake.name(),
-            "Email": fake.email(),
-            "Phone": fake.phone_number(),
-            "history_length_months": history_length,
-            "total_spending": np.random.randint(0, 10001),  # Spending in dollars
-            "issue_created_at": issue_created_at,
-            "priority_level": "VIP" if np.random.random() < 0.1 else "Regular",  # 10% VIP
-            "severity": np.random.choice(["Critical", "Moderate", "Low"], p=[0.1, 0.4, 0.5]),
-            "waiting_for_delivery": np.random.choice([True, False], p=[0.3, 0.7])
-            "issue_type": np.random.choice(["Diagnostic", "Scheduled Maitenance", "Repair"], p=[0.3, 0.5, 0.2])
-        }
-        tickets.append(ticket)
-    return tickets
+  tickets = []
+  for i in range(num_tickets):
+    history_length = np.random.randint(0, 37)
+    issue_created_at = (current_date - timedelta(days=np.random.randint(1, 366))).date()
+    issue_type = np.random.choice(["Diagnostic", "Maintenance", "Repair"], p=[0.3, 0.4, 0.3])
+
+    if issue_type=="Repair":
+      waiting_for_delivery = np.random.choice([True, False], p=[0.6, 0.4])
+    else:
+      waiting_for_delivery = False
+
+    ticket = {
+      "customer_id": i + 1,  # Unique customer ID
+      "Name": fake.name(),
+      "Email": fake.email(),
+      "Phone": fake.phone_number(),
+      "history_length_months": history_length,
+      "total_spending": np.random.randint(0, 5001),  # Spending in dollars
+      "issue_created_at": issue_created_at,
+      "priority_level": np.random.choice(["VIP", "Regular"], p=[0.1, 0.9]),
+      "severity": np.random.choice(["Critical", "Moderate", "Low"], p=[0.1, 0.4, 0.5]),
+      "issue_type": issue_type,
+      "waiting_for_delivery": waiting_for_delivery
+    }
+
+    tickets.append(ticket)
+  return tickets
 
 ticket_data = generate_ticket_data(num_tickets)
 
 df = pd.DataFrame(ticket_data)
 
-print("HEAD: ", df.head())
-print("TAIL: ", df.tail())
-print("length: ", len(df))
+print("DF: ", df)
+
+print("writing to testData.xlsx...")
+df.to_excel("testData.xlsx", index=False, engine="openpyxl")
 
 # Save to CSV for inspection
 # df.to_csv("ticket_data.csv", index=False)
