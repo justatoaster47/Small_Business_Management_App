@@ -107,3 +107,8 @@ to run virtual env
   `source venv/bin/activate`
 to install dependencies
   `pip3 install -r requirements.txt`
+to use jupyter notebooks (lab)
+  `jupyter-lab`
+to enable your venv installs in jupyter lab
+` python -m ipykernel install --user --name=venv --display-name "Python (venv)" `
+

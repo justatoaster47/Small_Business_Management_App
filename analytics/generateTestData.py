@@ -45,6 +45,11 @@ def generate_ticket_data(num_tickets):
       waiting_for_delivery = np.random.choice([True, False], p=[0.6, 0.4])
     else:
       waiting_for_delivery = False
+    
+    if issue_type!="Maitenance":
+      severity_level = np.random.choice(["Critical", "Moderate", "Low"], p=[0.1, 0.4, 0.5])
+    else:
+      severity_level = "Low"
 
     ticket = {
       "customer_id": i + 1,  # Unique customer ID
