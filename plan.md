@@ -1,20 +1,17 @@
 
 # next steps
 
+table for..
+* customer personal information
+* customer orders
+* staff information & priveledges
+* staff schedules
+* staff payment
+* inventory management 
 
-implement
-  automation 
-  python + jupyter labs
-  design architecting (improving efficiency)
-  excel
+more features
+* staff timecard component
+* automate inventory alerts on low stock / quick reordering
+* auto send invoices
 
-as healthcare based features for your pre-existing web app
-this will be good as well as now you're handling data transfers and stuff like
-that over the web instead of just locally
-
-containerize with docker
-deploy with azure
-blockchain somehow?
-ai / ml somehow?
-
-just one big mega project having every technology that can interact, interact
+how to ideally allocate limited resources working within multiple constraints

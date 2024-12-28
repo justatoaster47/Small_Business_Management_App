@@ -96,3 +96,14 @@ client .env:
   VITE_API_BASE_URL=http://localhost:8000
 
 
+
+
+
+
+
+to build virtual env:
+  `python3 -m venv venv`
+to run virtual env
+  `source venv/bin/activate`
+to install dependencies
+  `pip3 install -r requirements.txt`
