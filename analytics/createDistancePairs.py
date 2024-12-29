@@ -1,22 +1,9 @@
 
-# (cusomter ticket also includes address)
-# pull from some map api to load your node/edge graph, so that you have a map
-# which includes a location of every ticket, each node is weighted by its
-# Urgency Score
-#
-# your have n amount of hours to allot for a given map (corresponding to the
-# number of hours an employee works for the day) and you subtract the apropriate
-# amount of hours based on predicted 1. travel time (edge) 2. work time (node,
-# time spent at the location doing work)
-
-
 import os
 from dotenv import load_dotenv
 import pandas as pd
 import requests
-import networkx as nx
 from itertools import combinations
-import matplotlib.pyplot as plt
 
 load_dotenv()
 
@@ -64,29 +51,3 @@ def create_pairs_and_distances():
 
   pairs_df.to_excel("excel/addressPairings.xlsx", index=False, engine="openpyxl")
 
-
-create_pairs_and_distances()
-
-
-
-
-# distances_df = pd.read_excel("addressPairings.xlsx")
-
-# graph = nx.Graph()
-
-# print(distances_df.columns)
-# print(distances_df)
-
-# Add edges with weights
-# for index, row_data in distances_df.items():
-    # graph.add_edge(row_data[0], row_data[1], weight=row_data[3])
-    # print(row_data[3])
-# pos = nx.spring_layout(graph)  # Positions for all nodes
-# nx.draw(graph, pos, with_labels=True, node_color="skyblue", node_size=2000, font_size=15)
-# labels = nx.get_edge_attributes(graph, "weight")  # Get weights
-# nx.draw_networkx_edge_labels(graph, pos, edge_labels=labels)
-
-
-# Show the plot
-# plt.title("Undirected Weighted Complete Graph")
-# plt.show()
