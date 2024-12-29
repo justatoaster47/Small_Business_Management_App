@@ -2,3 +2,4 @@ openpyxl
 pandas
 faker
 ipykernel
+python-dotenv

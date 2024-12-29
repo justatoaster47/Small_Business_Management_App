@@ -22,7 +22,6 @@
 # hard coded wait-until date. customer is simply not included in the selection map until that date
 
 
-
 import pandas as pd
 import numpy as np
 from faker import Faker
@@ -30,9 +29,22 @@ from datetime import datetime, timedelta
 
 fake = Faker()
 
-num_tickets = 100
+num_tickets = 10
 
 current_date = datetime.today()
+
+addresses = [
+  " 4370 Town Center Blvd Suite 300, El Dorado Hills, CA 95762, United States ",
+  " 4641 Post St, El Dorado Hills, CA 95762, United States ",
+  " 5220 Robert J Mathews Pkwy, El Dorado Hills, CA 95762, United States ",
+  " 2100 Valley View Pkwy, El Dorado Hills, CA 95762, United States ",
+  " 4980 Gillette Dr, El Dorado Hills, CA 95762, United States ",
+  " 2085 Vine St #105, El Dorado Hills, CA 95762, United States ",
+  " 4805 Golden Foothill Pkwy, El Dorado Hills, CA 95762, United States ",
+  " 3860 El Dorado Hills Blvd STE 601, El Dorado Hills, CA 95762, United States ",
+  " 2020 Town Ctr W Wy, El Dorado Hills, CA 95762, United States ",
+  " 5170 Golden Foothill Pkwy, El Dorado Hills, CA 95762, United States "
+]
 
 def generate_ticket_data(num_tickets):
   tickets = []
@@ -56,11 +68,12 @@ def generate_ticket_data(num_tickets):
       "Name": fake.name(),
       "Email": fake.email(),
       "Phone": fake.phone_number(),
+      "Address": addresses[i],
       "history_length_months": history_length,
       "total_spending": np.random.randint(0, 5001),  # Spending in dollars
       "ticket_created": ticket_created,
       "priority_level": np.random.choice(["VIP", "Regular"], p=[0.1, 0.9]),
-      "severity": np.random.choice(["Critical", "Moderate", "Low"], p=[0.1, 0.4, 0.5]),
+      "severity": severity_level,
       "ticket_type": ticket_type,
       "waiting_for_delivery": waiting_for_delivery
     }
