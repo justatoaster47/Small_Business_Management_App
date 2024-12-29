@@ -22,8 +22,6 @@ load_dotenv()
 
 API_KEY=os.getenv("GOOGLE_MAPS_API_KEY")
 
-ticket_df = pd.read_excel('testData.xlsx')
-
 def get_driving_time(api_key, start_address, end_address):
     url = "https://maps.googleapis.com/maps/api/distancematrix/json"
     params = {
@@ -45,63 +43,50 @@ def get_driving_time(api_key, start_address, end_address):
     return f"Error: {response.status_code}"
 
 def create_pairs_and_distances():
-  # create unique pairs of locations
-  pairs = list(combinations(ticket_df["Address"], 2))
-  pairs_db = pd.DataFrame(pairs)
+  ticket_df = pd.read_excel('excel/testData.xlsx')
 
-  #list to store distances between pairs
+  # create unique pairs of locations (order doesn't matter)
+  pairs = list(combinations(ticket_df["Address"], 2))
+
+  pairs_df = pd.DataFrame(pairs)
+  pairs_df.columns = ["Address_1", "Address_2"]
+
+  #list to store distances between pairs (in minutes worth of driving)
   distances = []
 
   # calculate distance between each pair
-  for index, pair_info in pairs_db.iterrows():
-    address_1 = pair_info[0] # 0 and 1 are just the column names in this case
-    address_2 = pair_info[1]
+  for index, row_data in pairs_df.iterrows():
+    address_1 = row_data["Address_1"]
+    address_2 = row_data["Address_2"]
     distances.append(get_driving_time(API_KEY, address_1, address_2))
 
-  pairs_db["Distance"] = distances
+  pairs_df["Distance"] = distances
 
-  pairs_db.to_excel("addressPairings.xlsx", index=False, engine="openpyxl")
-
-
+  pairs_df.to_excel("excel/addressPairings.xlsx", index=False, engine="openpyxl")
 
 
+create_pairs_and_distances()
 
 
-#
-#
-#
-# # how shoudl i store this data?
-#
-# cities = ["City A", "City B", "City C", "City D", "City E"]
-#
-# # Define distances between each pair of cities
-# distances = {
-#     ("City A", "City B"): 10,
-#     ("City A", "City C"): 15,
-#     ("City A", "City D"): 20,
-#     ("City A", "City E"): 25,
-#     ("City B", "City C"): 35,
-#     ("City B", "City D"): 25,
-#     ("City B", "City E"): 30,
-#     ("City C", "City D"): 15,
-#     ("City C", "City E"): 20,
-#     ("City D", "City E"): 10
-# }
-#
-# # Create an undirected graph
+
+
+# distances_df = pd.read_excel("addressPairings.xlsx")
+
 # graph = nx.Graph()
-#
-# # Add edges with weights
-# for (city1, city2), distance in distances.items():
-#     graph.add_edge(city1, city2, weight=distance)
-#
-# # Draw the graph
+
+# print(distances_df.columns)
+# print(distances_df)
+
+# Add edges with weights
+# for index, row_data in distances_df.items():
+    # graph.add_edge(row_data[0], row_data[1], weight=row_data[3])
+    # print(row_data[3])
 # pos = nx.spring_layout(graph)  # Positions for all nodes
 # nx.draw(graph, pos, with_labels=True, node_color="skyblue", node_size=2000, font_size=15)
 # labels = nx.get_edge_attributes(graph, "weight")  # Get weights
 # nx.draw_networkx_edge_labels(graph, pos, edge_labels=labels)
-#
-# # Show the plot
+
+
+# Show the plot
 # plt.title("Undirected Weighted Complete Graph")
 # plt.show()
-#

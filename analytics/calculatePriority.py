@@ -1,8 +1,7 @@
 from datetime import datetime
 import pandas as pd
 
-df = pd.read_excel('testData.xlsx')
-print(df.head())
+df = pd.read_excel('excel/testData.xlsx')
 
 WEIGHTS = {
   "history_length_months": 1.0,
@@ -44,8 +43,8 @@ def calculate_urgency(row):
 
 df["ticket_age_days"] = df.apply(lambda row: (datetime.now() - row["ticket_created"]).days, axis=1)
 df["priority_rating"] = df.apply(calculate_urgency, axis=1)
+
 ranked_df = df.sort_values(by="priority_rating", ascending=False)
 
-ranked_df.to_excel("testData.xlsx", index=False, engine="openpyxl")
+ranked_df.to_excel("excel/testData.xlsx", index=False, engine="openpyxl")
 
-print(ranked_df)

@@ -3,3 +3,6 @@ pandas
 faker
 ipykernel
 python-dotenv
+requests
+networkx
+matplotlib

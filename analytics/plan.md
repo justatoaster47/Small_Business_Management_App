@@ -12,7 +12,6 @@
 4. do initial assignments of Urgency Scores for each customer ticket
 5. order all ranked tickets in a data structure which is return value
 
-then 
 
 (cusomter ticket also includes address)
 pull from some map api to load your node/edge graph, so that you have a map
