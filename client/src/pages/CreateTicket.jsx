@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Fuse from 'fuse.js';
 
 // Mock Users Data
 const mockUsers = [
@@ -21,6 +22,13 @@ const UserFormWithSearch = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
 
+  // Fuse.js configuration for fuzzy search
+  const fuse = new Fuse(mockUsers, {
+    keys: ['name', 'email', 'address', 'phone'], // Fields to search in
+    threshold: 0.6, // Sensitivity (0 = exact match, 1 = everything)
+    includeScore: true, // Include score for ranking results
+  });
+
   // Function to handle form inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,18 +38,11 @@ const UserFormWithSearch = () => {
     if (name === 'phone') setPhone(value);
   };
 
-  // Function to filter mock users based on any field
+  // Function to filter users using Fuse.js
   const filterUsers = () => {
     const query = name || email || address || phone;
     if (query) {
-      const results = mockUsers.filter(user => {
-        return (
-          user.name.toLowerCase().includes(query.toLowerCase()) ||
-          user.email.toLowerCase().includes(query.toLowerCase()) ||
-          user.address.toLowerCase().includes(query.toLowerCase()) ||
-          user.phone.includes(query)
-        );
-      });
+      const results = fuse.search(query).map(result => result.item); // Get filtered users
       setFilteredUsers(results);
       setShowDropdown(results.length > 0); // Show dropdown only if there are results
     } else {
@@ -135,8 +136,8 @@ const UserFormWithSearch = () => {
                 className="cursor-pointer p-3 hover:bg-gray-200"
                 onClick={() => handleUserSelect(user)}
               >
-                <strong>{user.name}</strong> - {user.email} - {user.phone} 
-                <br />
+                <strong>{user.name}</strong> - {user.email} - {user.phone}
+                <br/>
                 <small>{user.address}</small>
               </li>
             ))}
