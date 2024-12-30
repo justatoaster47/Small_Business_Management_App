@@ -46,25 +46,25 @@ def maximize_priority_score_within_time(graph, start_node, time):
       best_route = visited_nodes
 
     # recursively search through every non-visited neighbor
-    for neighbor in graph.neighbors():
+    for neighbor in graph.neighbors(current_node):
       if neighbor not in visited_nodes: # don't visit the same address, bad business logic
         travel_time = graph[current_node][neighbor]['travel_time']
         recursive_dfs(
           neighbor, 
           visited_nodes + [neighbor], 
           time_left - travel_time, 
-          score + graph.nodes[neighbor]['priority_rating']
+          score + graph.nodes[neighbor]['priority_score']
         )
 
   # run the problem
-  recursive_dfs(start_node, [start_node], time, graph.nodes[start_node]['priority_rating'])
+  recursive_dfs(start_node, [start_node], time, graph.nodes[start_node]['priority_score'])
   return best_route, best_score
 
 
 
 
-start_address = "3196 Melrose Way"
-time_mins = 15
+start_address = " 2100 Valley View Pkwy, El Dorado Hills, CA 95762, United States "
+time_mins = 5
 
 route, score = maximize_priority_score_within_time(my_graph, start_address, time_mins)
 print("Best route:", route)
