@@ -23,14 +23,36 @@ def get_driving_time(api_key, start_address, end_address):
         if data["rows"]:
             elements = data["rows"][0]["elements"][0]
             if elements["status"] == "OK":
-                duration = elements["duration"]["text"]
-                return f"Driving time: {duration}"
+                duration = elements["duration"]["value"] / 60
+                return duration
             else:
-                return f"Error: {elements['status']}"
+                return -1
     return f"Error: {response.status_code}"
 
 def create_pairs_and_distances():
   ticket_df = pd.read_excel('excel/testData.xlsx')
+
+  # create unique pairs of locations (order doesn't matter)
+  pairs = list(combinations(ticket_df["Address"], 2))
+
+  pairs_df = pd.DataFrame(pairs)
+  pairs_df.columns = ["address_1", "address_2"]
+
+  #list to store distances between pairs (in minutes worth of driving)
+  distances = []
+
+  # calculate distance between each pair
+  for index, row_data in pairs_df.iterrows():
+    address_1 = row_data["Address_1"]
+    address_2 = row_data["Address_2"]
+    distances.append(get_driving_time(API_KEY, address_1, address_2))
+
+  pairs_df["distance_minutes"] = distances
+
+  pairs_df.to_excel("excel/addressPairings.xlsx", index=False, engine="openpyxl")
+
+def test_api():
+  ticket_df = pd.read_excel('excel/testData.xlsx', nrows=2)
 
   # create unique pairs of locations (order doesn't matter)
   pairs = list(combinations(ticket_df["Address"], 2))
@@ -47,7 +69,14 @@ def create_pairs_and_distances():
     address_2 = row_data["Address_2"]
     distances.append(get_driving_time(API_KEY, address_1, address_2))
 
-  pairs_df["Distance"] = distances
+  pairs_df["distance_minutes"] = distances
 
-  pairs_df.to_excel("excel/addressPairings.xlsx", index=False, engine="openpyxl")
+  print(pairs_df)
 
+
+print("calculating distances...")
+
+create_pairs_and_distances()
+# test_api()
+
+print("done")

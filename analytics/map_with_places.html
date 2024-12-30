@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ebca7e019691fc25e17aa119eb269ad1 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_ebca7e019691fc25e17aa119eb269ad1" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ebca7e019691fc25e17aa119eb269ad1 = L.map(
+                "map_ebca7e019691fc25e17aa119eb269ad1",
+                {
+                    center: [0.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 1,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_aef7ce7ef34c7e23f5a09c982187e03f = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_aef7ce7ef34c7e23f5a09c982187e03f.addTo(map_ebca7e019691fc25e17aa119eb269ad1);
+        
+    
+            var marker_ed029f5a30e9aeb1d9866515d73da93f = L.marker(
+                [38.6328517331537, -121.06837936866943],
+                {
+}
+            ).addTo(map_ebca7e019691fc25e17aa119eb269ad1);
+        
+    
+        var popup_af9dab5ea03f64bbe4fd602fbef70b8e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ba6a530ea32879e3aa3177086994405a = $(`<div id="html_ba6a530ea32879e3aa3177086994405a" style="width: 100.0%; height: 100.0%;"> 4805 Golden Foothill Pkwy, El Dorado Hills, CA 95762, United States </div>`)[0];
+                popup_af9dab5ea03f64bbe4fd602fbef70b8e.setContent(html_ba6a530ea32879e3aa3177086994405a);
+            
+        
+
+        marker_ed029f5a30e9aeb1d9866515d73da93f.bindPopup(popup_af9dab5ea03f64bbe4fd602fbef70b8e)
+        ;
+
+        
+    
+    
+            marker_ed029f5a30e9aeb1d9866515d73da93f.bindTooltip(
+                `<div>
+                     Place 1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_6d92d99ae29fdebb0f9aada39ed8a124 = L.marker(
+                [38.67859418859684, -121.08679410593088],
+                {
+}
+            ).addTo(map_ebca7e019691fc25e17aa119eb269ad1);
+        
+    
+        var popup_f405094df463edb8da8bab53d2bfa377 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_370265dab72abb1257f265510823ffe0 = $(`<div id="html_370265dab72abb1257f265510823ffe0" style="width: 100.0%; height: 100.0%;"> 4980 Gillette Dr, El Dorado Hills, CA 95762, United States </div>`)[0];
+                popup_f405094df463edb8da8bab53d2bfa377.setContent(html_370265dab72abb1257f265510823ffe0);
+            
+        
+
+        marker_6d92d99ae29fdebb0f9aada39ed8a124.bindPopup(popup_f405094df463edb8da8bab53d2bfa377)
+        ;
+
+        
+    
+    
+            marker_6d92d99ae29fdebb0f9aada39ed8a124.bindTooltip(
+                `<div>
+                     Place 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_7a0ac745fedc378cc7c28000e6c1e82b = L.polyline(
+                [[38.6328517331537, -121.06837936866943], [38.67859418859684, -121.08679410593088]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_ebca7e019691fc25e17aa119eb269ad1);
+        
+    
+            poly_line_7a0ac745fedc378cc7c28000e6c1e82b.bindTooltip(
+                `<div>
+                     10 mins minutes
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_fd2845427f2d5b443a73b8fb2668314a = L.marker(
+                [38.6328517331537, -121.06837936866943],
+                {
+}
+            ).addTo(map_ebca7e019691fc25e17aa119eb269ad1);
+        
+    
+        var popup_62714eefe7efefccd4cc993156f80a05 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_17120a35191f2bd20b2d6ab27de1f094 = $(`<div id="html_17120a35191f2bd20b2d6ab27de1f094" style="width: 100.0%; height: 100.0%;"> 4805 Golden Foothill Pkwy, El Dorado Hills, CA 95762, United States </div>`)[0];
+                popup_62714eefe7efefccd4cc993156f80a05.setContent(html_17120a35191f2bd20b2d6ab27de1f094);
+            
+        
+
+        marker_fd2845427f2d5b443a73b8fb2668314a.bindPopup(popup_62714eefe7efefccd4cc993156f80a05)
+        ;
+
+        
+    
+    
+            marker_fd2845427f2d5b443a73b8fb2668314a.bindTooltip(
+                `<div>
+                     Place 1
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_2eca4c1351e687008c4d373ef82f5848 = L.marker(
+                [38.65272255, -121.06631585000001],
+                {
+}
+            ).addTo(map_ebca7e019691fc25e17aa119eb269ad1);
+        
+    
+        var popup_e5fabb6e3faee102dac717b3f6130699 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0b901b2ed5d8bd4230edd5a5f7b0af57 = $(`<div id="html_0b901b2ed5d8bd4230edd5a5f7b0af57" style="width: 100.0%; height: 100.0%;"> 2100 Valley View Pkwy, El Dorado Hills, CA 95762, United States </div>`)[0];
+                popup_e5fabb6e3faee102dac717b3f6130699.setContent(html_0b901b2ed5d8bd4230edd5a5f7b0af57);
+            
+        
+
+        marker_2eca4c1351e687008c4d373ef82f5848.bindPopup(popup_e5fabb6e3faee102dac717b3f6130699)
+        ;
+
+        
+    
+    
+            marker_2eca4c1351e687008c4d373ef82f5848.bindTooltip(
+                `<div>
+                     Place 2
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_cc33c4a3878ed0fdad3064ec828fd0fe = L.polyline(
+                [[38.6328517331537, -121.06837936866943], [38.65272255, -121.06631585000001]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_ebca7e019691fc25e17aa119eb269ad1);
+        
+    
+            poly_line_cc33c4a3878ed0fdad3064ec828fd0fe.bindTooltip(
+                `<div>
+                     6 mins minutes
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            map_ebca7e019691fc25e17aa119eb269ad1.fitBounds(
+                [[38.6328517331537, -121.06837936866943], [38.67859418859684, -121.08679410593088], [38.6328517331537, -121.06837936866943], [38.65272255, -121.06631585000001]],
+                {}
+            );
+        
+</script>
+</html>
