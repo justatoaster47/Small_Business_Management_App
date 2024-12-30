@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 const SquareLinks = () => {
   const links = [
     { to: '/records', text: 'Records' },
-    { to: '/page2', text: 'Page 2' },
-    { to: '/page3', text: 'Page 3' },
+    { to: '/login', text: 'Login' },
+    { to: '/create-ticket', text: 'Create Ticket' },
     { to: '/page4', text: 'Page 4' },
     { to: '/page5', text: 'Page 5' },
     { to: '/page6', text: 'Page 6' },

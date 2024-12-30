@@ -3,6 +3,7 @@
   import Homepage from './pages/Homepage';
   import Login from './pages/Login';
   import Records from './pages/Records';
+  import CreateTicket from './pages/CreateTicket';
 
   function App() {
 
@@ -13,6 +14,7 @@
             <Route path='/' element={<Homepage />} />
             <Route path='/login' element={<Login />} />
             <Route path='/records' element={<Records />} />
+            <Route path='/create-ticket' element={<CreateTicket />} />
           </Routes>
         </Router>
 
