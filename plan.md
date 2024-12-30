@@ -1,6 +1,15 @@
 
 # next steps
 
+or you default to filling out name, email, phone, address
+and it automatically searches all of these fields for a match
+and autofills the rest of the form if a match is found
+confirm with click
+
+
+
+
+
 for creating shortest route graph business logic...
 
 user input & valiation..
