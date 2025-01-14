@@ -38,9 +38,17 @@ which pulls from your package.json.
   touch server/.env
   ```
   ```.env
-  DB_USER=alexpetro
-  DB_PASSWORD=postgres888
-  DB_NAME=small_business_db
+DB_USER=alexpetro
+DB_PASSWORD=postgres888
+DB_NAME=small_business_db
+DB_HOST=localhost
+SERVER_PORT=8000
+DB_PORT=5432
+CLIENT_URL=http://localhost:5173
+
+# generate secret key with command:
+# node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+JWT_SECRET_KEY=
   ```
 
 ## set up database locally
@@ -79,20 +87,8 @@ refs
 
 
 
-since this is not serious.. here is the environment files
-server's .env:
-  DB_USER=alexpetro
-  DB_PASSWORD=postgres888
-  DB_NAME=small_business_db
-  DB_HOST=localhost
-  SERVER_PORT=8000
-  DB_PORT=5432
-  CLIENT_URL=http://localhost:5173
-  # generate secret key with command:
-  # node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-  JWT_SECRET_KEY=728dff4a07596117772225ebce2b83a1f38a668adae8c2478b80488983651c20
 
-client .env:
+also the client .env:
   VITE_API_BASE_URL=http://localhost:8000
 
 
