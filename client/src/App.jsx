@@ -1,30 +1,51 @@
-  import React from 'react';
-  import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-  import Homepage from './pages/Homepage';
-  import Login from './pages/Login';
-  import Records from './pages/Records';
-  import CreateTicket from './pages/CreateTicket';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Homepage from './pages/Homepage';
+import Login from './pages/Login';
+import Records from './pages/Records';
 
-  function App() {
+// Helper function to check authentication
+const isAuthenticated = () => {
+  const token = localStorage.getItem("jwt");
+  return token && token.trim().length > 0; // checks if a valid jwt exists
+}
 
-    return (
-      <>
-        <Router>
-          <Routes>
-            <Route path='/' element={<Homepage />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/records' element={<Records />} />
-            <Route path='/create-ticket' element={<CreateTicket />} />
-          </Routes>
-        </Router>
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={isAuthenticated() ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}
+        />
 
-        
-        
+        <Route path="/login" element={<Login />} />
 
-      
-      </>
-    );
-  }
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Homepage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/records"
+          element={
+            <PrivateRoute>
+              <Records />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </Router>
+  );
+}
 
-  export default App;
+const PrivateRoute = ({ children }) => {
+  return isAuthenticated() ? children : <Navigate to="/login" />;
+};
+
+export default App;
+
 
