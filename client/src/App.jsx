@@ -7,7 +7,17 @@ import Records from './pages/Records';
 // Helper function to check authentication
 const isAuthenticated = () => {
   const token = localStorage.getItem("jwt");
-  return token && token.trim().length > 0; // checks if a valid jwt exists
+  
+  if (!token) return false; // No token, not authenticated
+  
+  try {
+    const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode the JWT payload
+    const currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
+    return decodedToken.exp > currentTime; // Check if the token's expiration time is still valid
+  } catch (error) {
+    console.error('Invalid token:', error);
+    return false; // Return false if the token is invalid or can't be decoded
+  }
 }
 
 function App() {

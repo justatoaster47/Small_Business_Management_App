@@ -88,6 +88,7 @@ more features
 * automate inventory alerts on low stock / quick reordering
 * auto send invoices
 * push notifications 
+* reset password by email
 
 how to ideally allocate limited resources working within multiple constraints
 

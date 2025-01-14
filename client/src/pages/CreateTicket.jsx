@@ -13,7 +13,7 @@ const mockUsers = [
   { id: 8, name: 'Hannah Black', email: 'hannah.black@example.com', address: '432 Birchwood Ave, Springfield, IL', phone: '555-7788' },
 ];
 
-const UserFormWithSearch = () => {
+const CreateTicket = () => {
   // Form Fields
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -148,5 +148,5 @@ const UserFormWithSearch = () => {
   );
 };
 
-export default UserFormWithSearch;
+export default CreateTicket;
 
