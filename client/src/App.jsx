@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
 import Records from './pages/Records';
+import CreateTicket from './pages/CreateTicket';
 
 // Helper function to check authentication
 const isAuthenticated = () => {
@@ -44,6 +45,14 @@ function App() {
           element={
             <PrivateRoute>
               <Records />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/create-ticket"
+          element={
+            <PrivateRoute>
+              <CreateTicket />
             </PrivateRoute>
           }
         />
