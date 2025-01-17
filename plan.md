@@ -139,4 +139,14 @@ fullstack thing is valid because if you don't have any substance that you're
 really stiching together whats really the point.
 the route optimizer is a great first iteration of this sort of thing. 
 
+i do think it would be cool to figure out how to
+1. host server (though this is probably relatively simple, may be more
+   intersting if done in a more manual way although modern relevance is
+   maybe reduced compared to commonly used technology. through aws or azure?
+   or some paul type thing host it on your own
+2. package everything with docker. is docker kinda just like a shell script,
+   like my make installs thing??
+3. have your database not stored locally but in some more portable method
+   where it works across difference machines. 
+
 
