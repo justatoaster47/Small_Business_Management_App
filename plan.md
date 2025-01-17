@@ -7,6 +7,20 @@ and autofills the rest of the form if a match is found
 confirm with click
 
 
+2 section.
+div 1: fill out user information, with create new user button at bottom. the
+submit button is only for new users
+div 2: a fuzzy search with pre-existing user accounts showing up. if one is
+clicked on, it auto-links the ticket to that account (no submit button)
+
+
+
+also make fuzzy searching apply to each subject specifically (name, address,
+etc) so one item not matching doesn't compromise other items potentially
+matching
+such as a spouse calling for the same house should in theory link back to the
+same account
+
 
 
 
@@ -91,5 +105,38 @@ more features
 * reset password by email
 
 how to ideally allocate limited resources working within multiple constraints
+
+
+
+
+
+further ideas:
+Inventory Management Microservice
+    Purpose: Ensure optimal stock levels.
+    Interesting Algorithms:
+        Time Series Forecasting (Prophet, LSTM for demand prediction).
+        Optimization Techniques (Linear Programming for replenishment planning).
+        Monte Carlo Simulation (for uncertainty in supply chain).
+
+
+honestly theres so much ml type of things i think this may be the route 
+like a lil gold rush
+
+lets do a lil machine learning sort of thing.
+on something that would be similar to healthcare data analysis but in a small
+business context. to find insights.
+
+
+for my overall plan, for mentally navigating this:
+dedicate your initial 60% of energy into creating indiviudally interesting and
+conceptually synergistic microservices that are valid projects of their own
+accord. somewhat similarly themed at least in the potential for a singular
+application. 
+once all of these are mostly implemented by themselves i think that would then
+be motivation enough to validate stitching them all together within a
+fullstack web application, but i don't think simply starting with the
+fullstack thing is valid because if you don't have any substance that you're
+really stiching together whats really the point.
+the route optimizer is a great first iteration of this sort of thing. 
 
 
