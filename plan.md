@@ -150,3 +150,14 @@ i do think it would be cool to figure out how to
    where it works across difference machines. 
 
 
+for your create ticket interface have two separated divs, one of a create new
+user forum with inputs. and a rightmost display of selecting a pre-existing
+user. on click it highlights them and un-grey-outs a confirm select
+pre-exsiting user button, while also greying-out the create-new customer
+button. this is an entirely separate entity from the actual application users
+(employees and owners) vs create a customer account which is simply stored
+data of addresses and history and ticket sand such.
+
+
+
+
